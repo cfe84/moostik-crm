@@ -24,14 +24,20 @@ const styles = {
     width: "100px"
   },
   title: {
-    marginTop: "20px",
-    textAlign: "center"
+    margin: "1px",
+    textAlign: "center",
   },
   button: {
     marginTop: "8px",
   },
   signuplink: {
     marginTop: "10px"
+  },
+  poweredBy: {
+    marginTop: "45px",
+    textAlign: "center",
+    fontStyle: "italic",
+    marginBottom: "1px",
   }
 } as const;
 
@@ -91,7 +97,8 @@ export function SignupForm() {
       </Form>
       </Col>
       <Col>
-        <p>Thanks for your interest in collaborating with us! Please fill in these contact details to get access and start our collaboration.</p>
+        <p>Thanks for your interest in collaborating with us! Please fill in this signup form to get access and start our collaboration.</p>
+        <p style={styles.poweredBy}>Powered by</p>
         <h2 style={styles.title}>Moostik CRM</h2>
         <img src="../img/moostik.png" style={styles.logo}></img>
       </Col>
