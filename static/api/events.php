@@ -4,11 +4,12 @@
     
     $config = include("../config.php");
 
-    $HOST = $config->dbhost;
-    $USER = $config->dbuser;
-    $DB = $config->dbname;
-    $PASSWORD = $config->dbpassword;
-
+    $HOST = $config["dbhost"];
+    $USER = $config["dbuser"];
+    $DB = $config["dbname"];
+    $PASSWORD = $config["dbpassword"];
+    $mysqli = new mysqli($HOST, $USER, $PASSWORD, $DB);
+    
     if ($_SERVER["REQUEST_METHOD"] != "POST")
     {
         echo "Moostik";
@@ -17,7 +18,6 @@
     {
         $body = file_get_contents('php://input');
         $event = json_decode($body);
-        $mysqli = new mysqli($HOST, $USER, $PASSWORD, $DB);
         $statement = $mysqli->prepare("INSERT INTO events (
             SentDateTime, 
             EventType,
@@ -31,7 +31,7 @@
         ) VALUES (?,?,?,?,?,?,?,?,?)");
         $statement->bind_param("ssssssssi",
             $event->sentDateTime, 
-            $event->eventTame,
+            $event->eventType,
             $event->sessionId,
             $event->referralId,
             $event->username,
@@ -40,12 +40,10 @@
             $event->clue,
             $event->attemptCount);
         $res = $statement->execute();
-        // $err = mysqli_error($mysqli);
-        // if ($res != 1)
-        // {
-        //     $error_stmt = $mysqli->prepare("INSERT INTO errors (date, error, body) VALUES (CURDATE(),?,?)");
-        //     $error_stmt->bind_param("ss", $err, $body);
-        //     $error_stmt->execute();
-        // }
+        $err = mysqli_error($mysqli);
+        if ($res != 1)
+        {
+            echo $err;
+        }
     }
 ?>

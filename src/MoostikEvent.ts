@@ -1,6 +1,6 @@
 export interface MoostikEvent {
   sentDateTime: Date, 
-  eventName: string,
+  eventType: string,
   sessionId?: string,
   referralId?: string,
   username?: string,

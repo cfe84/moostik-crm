@@ -64,7 +64,7 @@ export function SignupForm() {
 
   async function sendSignupEventAsync(): Promise<void> {
     const event: MoostikEvent = {
-      eventName: "signup",
+      eventType: "signup",
       sentDateTime: new Date(),
       attemptCount: attemptCount + 1,
       clue: error,
