@@ -8,11 +8,31 @@
     $USER = $config["dbuser"];
     $DB = $config["dbname"];
     $PASSWORD = $config["dbpassword"];
+
+    $USER = $config["user"];
+    $PASSWORD = $config["password"];
+
     $mysqli = new mysqli($HOST, $USER, $PASSWORD, $DB);
     
     if ($_SERVER["REQUEST_METHOD"] != "POST")
     {
-        echo "Moostik";
+        $auth = get_headers()["authorization"];
+        if ($auth == NULL)
+        {
+            http_response_code(401);
+            echo "Invalid username or password";
+            return;
+        }
+        $elts = explode(" ", $auth, 3);
+        $receivedUser = $elts[1];
+        $receivedPassword = $elts[2];
+        if ($USER != $receivedUser || $PASSWORD != $receivedPassword)
+        {
+            http_response_code(401);
+            echo "Invalid username or password";
+            return;
+        }
+        echo '"Cool"';
     }
     else
     {

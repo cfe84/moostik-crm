@@ -2,6 +2,7 @@ import * as React from "react";
 import * as ReactDomClient from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Alert, Button, Container, Form, Spinner } from "react-bootstrap";
+import { DbHandler } from "./DbHandler";
 
 const styles = {
   form: {
@@ -33,10 +34,16 @@ const styles = {
 export function SigninForm() {
   const [error, setError] = React.useState("");
   const [signingIn, setSigningIn] = React.useState(false);
+  const [username, setUsername] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   function signin() {
     setSigningIn(true);
-    setTimeout(() => { setError("Invalid username or password"); setSigningIn(false) }, 2500);
+    DbHandler.getSessionsAsync(username, password, ".")
+      .then((res) => console.log(res))
+      .catch(err => setError(err.message))
+      .finally(() => setSigningIn(false));
+    // setTimeout(() => { setError("Invalid username or password"); setSigningIn(false) }, 2500);
   }
 
   return <Container>

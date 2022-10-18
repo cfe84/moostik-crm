@@ -31,8 +31,13 @@ function sendQueryAsync<T>(relativePath: string, method: string = "GET", body: a
   })
 }
 
-export class EventHandler {
+export class DbHandler {
   static async logEventAsync(event: MoostikEvent, pathToApi: string = ".") {
     await sendQueryAsync(pathToApi, "POST", event);
+  }
+
+  static async getSessionsAsync(username: string, password: string, pathToApi: string = ".") {
+    const authorization = `plain ${username} ${password}`
+    return await sendQueryAsync<string>(pathToApi, "GET", undefined, { authorization });
   }
 }

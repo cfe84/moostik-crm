@@ -3,7 +3,7 @@ import * as ReactDomClient from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Alert, Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { PasswordValidator } from "./PasswordValidator";
-import { EventHandler } from "./EventHandler";
+import { DbHandler } from "./DbHandler";
 import { MoostikEvent } from "./MoostikEvent";
 import { v4 as uuid } from "uuid";
 
@@ -75,7 +75,7 @@ export function SignupForm() {
       sessionId,
     }
     setAttemptCount(attemptCount + 1);
-    EventHandler.logEventAsync(event, "..")
+    DbHandler.logEventAsync(event, "..")
       .catch(err => console.error(err));
   }
 
