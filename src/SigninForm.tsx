@@ -53,16 +53,16 @@ export function SigninForm() {
       { error === "" || <Alert variant="danger">{error}</Alert>}
       <Form.Group>
         <Form.Label>Username</Form.Label>
-        <Form.Control type="text" disabled={signingIn}></Form.Control>
+        <Form.Control type="text" disabled={signingIn} onChange={(evt => setUsername(evt.target.value))}></Form.Control>
       </Form.Group>
       <Form.Group>
         <Form.Label>Password</Form.Label>
-        <Form.Control type="password" disabled={signingIn}></Form.Control>
+        <Form.Control type="password" disabled={signingIn} onChange={(evt => setPassword(evt.target.value))}></Form.Control>
       </Form.Group>
       <Form.Group style={styles.button} >
         { signingIn 
           ? <Spinner animation="grow" variant="primary" />
-          : <><Button onClick={signin}>Sign In</Button> <br/> <a style={styles.signuplink} href="./signup/">Create an account</a></>}
+          : <><Button onClick={signin} disabled={!username || !password}>Sign In</Button> <br/> <a style={styles.signuplink} href="./signup/">Create an account</a></>}
       </Form.Group>
       
     </Form>
