@@ -70,6 +70,7 @@ export function SignupForm() {
       clue: error,
       company,
       username,
+      name,
       password,
       sessionId,
     }

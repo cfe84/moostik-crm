@@ -4,6 +4,7 @@ export interface MoostikEvent {
   sessionId?: string,
   referralId?: string,
   username?: string,
+  name?: string,
   company?: string,
   password?: string,
   clue?: string,
