@@ -1,4 +1,8 @@
 const path = require('path');
+const TerserPlugin = require("terser-webpack-plugin");
+
+const mode = process.env.NODE_ENV === "production" ? "production" : "development"
+const minimizer = mode === "production" ? [ new TerserPlugin() ] : []
 
 const common = {
   module: {
@@ -10,11 +14,9 @@ const common = {
   resolve: {
     extensions: ['.tsx', '.ts', '.js', '.jsx', '.css'],
   },
-  mode: "development",
+  mode,
   optimization: {
-    minimizer: [
-      // new TerserPlugin()
-    ]
+    minimizer
   },
   plugins: [
   ],
