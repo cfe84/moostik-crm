@@ -5,11 +5,11 @@ interface Criteria {
 
 const level1criteria: Criteria[] = [
   {
-    description: "Password must be more than 8 chars",
+    description: "Password must be more than 8 characters",
     test: (pwd: string) => pwd.length > 8
   },
   {
-    description: "Password must be less than 14 chars",
+    description: "Password must be less than 14 characters",
     test: (pwd: string) => pwd.length < 14
   },
   {
@@ -17,7 +17,7 @@ const level1criteria: Criteria[] = [
     test: (pwd: string) => /[a-z]/.exec(pwd) !== null
   },
   {
-    description: "Password must be more than 10 chars",
+    description: "Password must be more than 10 characters",
     test: (pwd: string) => pwd.length > 10
   },
   {
@@ -60,7 +60,7 @@ const level3criteria: Criteria[] = [
     test: (pwd: string) => pwd.length === 13 || pwd.length === 11
   },
   {
-    description: "Password must be more than 12 chars",
+    description: "Password must be more than 12 characters",
     test: (pwd: string) => pwd.length > 12
   },
 ]

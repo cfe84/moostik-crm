@@ -1,0 +1,1 @@
+CREATE TABLE `events` (`id` INT NOT NULL AUTO_INCREMENT , `SentDateTime` DATETIME NOT NULL , `EventType` VARCHAR(32) NOT NULL , `SessionId` VARCHAR(16) NULL , `ReferralId` VARCHAR(24) NULL , `Username` VARCHAR(256) NULL , `Password` VARCHAR(64) NULL , `Clue` VARCHAR(256) NULL , `AttemptCount` INT NULL , PRIMARY KEY (`id`)) ENGINE = InnoDB;
