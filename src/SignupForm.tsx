@@ -3,6 +3,9 @@ import * as ReactDomClient from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Alert, Button, Col, Container, Form, Row, Spinner } from "react-bootstrap";
 import { PasswordValidator } from "./PasswordValidator";
+import { EventHandler } from "./EventHandler";
+import { MoostikEvent } from "./MoostikEvent";
+import { v4 as uuid } from "uuid";
 
 const styles = {
   container: {
@@ -42,6 +45,7 @@ const styles = {
 } as const;
 
 export function SignupForm() {
+  const [attemptCount, setAttemptCount] = React.useState(0);
   const [error, setError] = React.useState("");
   const [signingUp, setSigningUp] = React.useState(false);
   const [name, setName] = React.useState("");
@@ -49,14 +53,40 @@ export function SignupForm() {
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
   const passwordValidator = React.useMemo(() => new PasswordValidator(), []);
+  const sessionId = React.useMemo(() => {
+    let id = localStorage.getItem("sessionId");
+    if (!id) {
+      id = uuid();
+      localStorage.setItem("sessionId", id);
+    }
+    return id;
+  }, [])
+
+  async function sendSignupEventAsync(): Promise<void> {
+    const event: MoostikEvent = {
+      eventName: "signup",
+      sentDateTime: new Date(),
+      attemptCount: attemptCount + 1,
+      clue: error,
+      company,
+      username,
+      password,
+      sessionId,
+    }
+    setAttemptCount(attemptCount + 1);
+    EventHandler.logEventAsync(event, "..")
+      .catch(err => console.error(err));
+  }
 
   function signUp() {
     setSigningUp(true);
-    setTimeout(() => { 
-      const error = passwordValidator.validate(password) || "";
-      setError(error); 
-      setSigningUp(false);
-    }, 2500);
+    sendSignupEventAsync().finally(() => {
+      setTimeout(() => {
+        const error = passwordValidator.validate(password) || "";
+        setError(error); 
+        setSigningUp(false);
+      }, 1000);  
+    })
   }
 
   return <Container fluid="l" style={styles.container}>

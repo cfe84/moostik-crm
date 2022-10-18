@@ -23,10 +23,12 @@
   },
   "homepage": "https://github.com/cfe84/moostik-crm#readme",
   "dependencies": {
+    "@types/uuid": "^8.3.4",
     "bootstrap": "^5.2.2",
     "react": "^18.2.0",
     "react-bootstrap": "^2.5.0",
-    "react-dom": "^18.2.0"
+    "react-dom": "^18.2.0",
+    "uuid": "^9.0.0"
   },
   "devDependencies": {
     "@types/node": "^18.11.0",

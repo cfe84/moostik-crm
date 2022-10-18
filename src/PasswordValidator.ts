@@ -44,7 +44,7 @@ const level2criteria: Criteria[] = [
     test: (pwd: string) => /\d.*\d/.exec(pwd) !== null
   },
   {
-    description: "Password must contain at least 1 special character",
+    description: "Password must contain at least 1 special character in: @#$%*+=-",
     test: (pwd: string) => /[@#$%*+=-]/.exec(pwd) !== null
   },
   
