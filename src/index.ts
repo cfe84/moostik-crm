@@ -1,10 +1,10 @@
-import { injectSigninForm } from "./SigninForm";
+import { injectIndexPage } from "./IndexPage";
 
 (function() {
   window.onload = () => {
     const elt = document.getElementById("root");
     if (elt){
-      injectSigninForm(elt);
+      injectIndexPage(elt);
     }
   }
 })();

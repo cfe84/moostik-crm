@@ -1,8 +1,12 @@
 import * as React from "react";
-import * as ReactDomClient from "react-dom/client";
-import "bootstrap/dist/css/bootstrap.min.css";
 import { Alert, Button, Container, Form, Spinner } from "react-bootstrap";
+import { Auth } from "./Auth";
+import { Creds } from "./Creds";
 import { DbHandler } from "./DbHandler";
+
+export interface SigninFormProps {
+  onSignin: (creds: Creds) => void
+}
 
 const styles = {
   form: {
@@ -10,18 +14,6 @@ const styles = {
     maxWidth: "300px",
     border: "1px solid #bbb",
     padding: "20px",
-  },
-  logo: {
-    display: "block",
-    marginRight: "auto",
-    marginLeft: "auto",
-    marginTop: "20px",
-    marginBottom: "20px",
-    width: "200px"
-  },
-  title: {
-    marginTop: "20px",
-    textAlign: "center"
   },
   button: {
     marginTop: "8px",
@@ -31,7 +23,7 @@ const styles = {
   }
 } as const;
 
-export function SigninForm() {
+export function SigninForm(props: SigninFormProps) {
   const [error, setError] = React.useState("");
   const [signingIn, setSigningIn] = React.useState(false);
   const [username, setUsername] = React.useState("");
@@ -40,16 +32,17 @@ export function SigninForm() {
   function signin() {
     setSigningIn(true);
     DbHandler.getSessionsAsync(username, password, ".")
-      .then((res) => console.log(res))
+      .then((res) => {
+        console.log(res);
+        const creds = { username, password };
+        Auth.saveCreds(creds);
+        props.onSignin(creds);
+      })
       .catch(err => setError(err.message))
       .finally(() => setSigningIn(false));
-    // setTimeout(() => { setError("Invalid username or password"); setSigningIn(false) }, 2500);
   }
 
-  return <Container>
-    <h1 style={styles.title}>Moostik CRM</h1>
-    <img src="img/moostik.png" style={styles.logo}></img>
-    <Form style={styles.form}>
+  return <Form style={styles.form}>
       { error === "" || <Alert variant="danger">{error}</Alert>}
       <Form.Group>
         <Form.Label>Username</Form.Label>
@@ -66,9 +59,4 @@ export function SigninForm() {
       </Form.Group>
       
     </Form>
-  </Container>
-}
-
-export function injectSigninForm(element: HTMLElement) {
-  ReactDomClient.createRoot(element).render(<SigninForm></SigninForm>);
 }

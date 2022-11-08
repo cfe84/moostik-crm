@@ -8,5 +8,7 @@ export interface MoostikEvent {
   company?: string,
   password?: string,
   clue?: string,
+  securityQuestion?: string,
+  securityAnswer?: string,
   attemptCount?: number
 }

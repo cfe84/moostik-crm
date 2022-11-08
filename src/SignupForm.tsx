@@ -9,6 +9,7 @@ import { v4 as uuid } from "uuid";
 
 const styles = {
   container: {
+    padding: "10px",
     margin: "auto",
     marginTop: "50px",
     maxWidth: "800px",
@@ -44,6 +45,18 @@ const styles = {
   }
 } as const;
 
+function pick<T>(arr : T[]) { return arr[Math.floor(Math.random() * arr.length)]}
+
+const securityQuestions = [
+  "What was the nickname of your grandfather's best friend's spouse?",
+  "What is the number of bird species endemic to your country minus how old you were when you first walked?",
+  "What is was the name of your third best friends' favorite video game when they were 12?",
+  "What is the name of the street where your favorite author grew up in?",
+  "What is the name of your 4th least favorite country appended to the favorite pet of your 2nd cousin sorted by IQ?",
+  "What was the nickname of the dead relative you would most likely have intimate relations with?",
+  "How do you spell your name backwards?",
+]
+
 export function SignupForm() {
   const [attemptCount, setAttemptCount] = React.useState(0);
   const [error, setError] = React.useState("");
@@ -52,6 +65,8 @@ export function SignupForm() {
   const [company, setCompany] = React.useState("");
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [securityQuestion, setSecurityQuestion] = React.useState(pick(securityQuestions));
+  const [securityAnswer, setSecurityAnswer] = React.useState("");
   const passwordValidator = React.useMemo(() => new PasswordValidator(), []);
   const sessionId = React.useMemo(() => {
     let id = localStorage.getItem("sessionId");
@@ -92,12 +107,10 @@ export function SignupForm() {
 
   return <Container fluid="l" style={styles.container}>
     <Row>
-      <Col>
-        <h1>Contact form</h1>
-      </Col>
+      <h1>Contact form</h1>
+      <p>Thanks for your interest in collaborating with us! Please fill in this signup form to get access and start our collaboration.</p>
     </Row>
     <Row>
-      <Col xs={8}>
       <Form style={styles.form}>
         { error === "" || <Alert variant="danger">{error}</Alert>}
         <Form.Group>
@@ -116,23 +129,31 @@ export function SignupForm() {
           <Form.Label>Password</Form.Label>
           <Form.Control type="text" disabled={signingUp} onChange={(evt) => {setPassword(evt.target.value)}}></Form.Control>
         </Form.Group>
+        <Form.Group>
+          <Form.Label>Security Question</Form.Label>
+          <Form.Select defaultValue={securityQuestion} onChange={evt => setSecurityQuestion(evt.target.value)}>
+            {securityQuestions.map(question => <option>{question}</option>)}
+          </Form.Select>
+        </Form.Group>
+        <Form.Group>
+          <Form.Label>Security Answer</Form.Label>
+          <Form.Control type="text" disabled={signingUp} onChange={(evt) => {setSecurityAnswer(evt.target.value)}}></Form.Control>
+        </Form.Group>
         <Form.Group style={styles.button} >
           { signingUp 
             ? <Spinner animation="grow" variant="primary" />
             : <><Button 
               onClick={signUp}
-              disabled={!name || !company || !username || !password}
+              disabled={!name || !company || !username || !password || !securityAnswer}
               >Sign Up</Button> <br/>Or if you already have an account, <a style={styles.signuplink} href="../">sign-in</a></>}
         </Form.Group>
         
       </Form>
-      </Col>
-      <Col>
-        <p>Thanks for your interest in collaborating with us! Please fill in this signup form to get access and start our collaboration.</p>
-        <p style={styles.poweredBy}>Powered by</p>
-        <h2 style={styles.title}>Moostik CRM</h2>
-        <img src="../img/moostik.png" style={styles.logo}></img>
-      </Col>
+    </Row>
+    <Row>
+      <p style={styles.poweredBy}>Powered by</p>
+      <h2 style={styles.title}>Moostik CRM</h2>
+      <img src="../img/moostik.png" style={styles.logo}></img>
     </Row>
   </Container>
 }

@@ -9,8 +9,7 @@
     "copy-static": "cp -r static/ dist/",
     "pack:dev": "webpack",
     "pack:prod": "NODE_ENV=production webpack",
-    "clean": "rimraf dist/",
-    "start": "npm run build && node dist/index.js"
+    "clean": "rimraf dist/"
   },
   "repository": {
     "type": "git",

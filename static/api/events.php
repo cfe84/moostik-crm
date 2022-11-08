@@ -48,9 +48,11 @@
             Company,
             Password,
             Clue,
-            AttemptCount
-        ) VALUES (?,?,?,?,?,?,?,?,?)");
-        $statement->bind_param("ssssssssi",
+            AttemptCount,
+            SecurityQuestion,
+            SecurityAnswer
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
+        $statement->bind_param("ssssssssiss",
             $event->sentDateTime, 
             $event->eventType,
             $event->sessionId,
@@ -60,7 +62,9 @@
             $event->company,
             $event->password,
             $event->clue,
-            $event->attemptCount);
+            $event->attemptCount
+            $event->securityQuestion,
+            $event->securityAnswer);
         $res = $statement->execute();
         $err = mysqli_error($mysqli);
         if ($res != 1)
