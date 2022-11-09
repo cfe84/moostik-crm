@@ -6,6 +6,7 @@ import { PasswordValidator } from "./PasswordValidator";
 import { DbHandler } from "./DbHandler";
 import { MoostikEvent } from "./MoostikEvent";
 import { v4 as uuid } from "uuid";
+import "./SignupForm.css";
 
 const styles = {
   container: {
@@ -65,6 +66,7 @@ export function SignupForm() {
   const [company, setCompany] = React.useState("");
   const [username, setUsername] = React.useState("");
   const [password, setPassword] = React.useState("");
+  const [repeatPassword, setRepeatPassword] = React.useState("");
   const [securityQuestion, setSecurityQuestion] = React.useState(pick(securityQuestions));
   const [securityAnswer, setSecurityAnswer] = React.useState("");
   const passwordValidator = React.useMemo(() => new PasswordValidator(), []);
@@ -112,31 +114,36 @@ export function SignupForm() {
     </Row>
     <Row>
       <Form style={styles.form}>
-        { error === "" || <Alert variant="danger">{error}</Alert>}
-        <Form.Group>
+        <Form.Group className="mt-3">
           <Form.Label>Name</Form.Label>
           <Form.Control type="text" disabled={signingUp} placeholder="First and last name" onChange={(evt) => {setName(evt.target.value)}}></Form.Control>
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="mt-3">
           <Form.Label>Company</Form.Label>
           <Form.Control type="text" disabled={signingUp} placeholder="Company name" onChange={(evt) => {setCompany(evt.target.value)}}></Form.Control>
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="mt-3">
           <Form.Label>Username</Form.Label>
           <Form.Control type="text" disabled={signingUp} onChange={(evt) => {setUsername(evt.target.value)}}></Form.Control>
         </Form.Group>
-        <Form.Group>
+        <Form.Group className="mt-3">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="text" disabled={signingUp} onChange={(evt) => {setPassword(evt.target.value)}}></Form.Control>
+          <Form.Control type="password" disabled={signingUp} onChange={(evt) => {setPassword(evt.target.value)}}></Form.Control>
+          { error === "" || <p className="blink text-danger">{error}</p>}
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Security Question</Form.Label>
+        <Form.Group className="mt-3">
+          <Form.Label>Repeat Password </Form.Label>
+          <Form.Control type="password" disabled={signingUp}  onChange={(evt) => {setRepeatPassword(evt.target.value)}}></Form.Control>
+          { password === repeatPassword || <p className="blink text-danger ml-3">Passwords don't match.</p> }
+        </Form.Group>
+        <Form.Group className="mt-3">
+          <Form.Label>Security question</Form.Label>
           <Form.Select defaultValue={securityQuestion} onChange={evt => setSecurityQuestion(evt.target.value)}>
             {securityQuestions.map(question => <option>{question}</option>)}
           </Form.Select>
         </Form.Group>
-        <Form.Group>
-          <Form.Label>Security Answer</Form.Label>
+        <Form.Group className="mt-3">
+          <Form.Label>Answer to the security question</Form.Label>
           <Form.Control type="text" disabled={signingUp} onChange={(evt) => {setSecurityAnswer(evt.target.value)}}></Form.Control>
         </Form.Group>
         <Form.Group style={styles.button} >
