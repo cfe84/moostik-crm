@@ -29,6 +29,7 @@ export function IndexPage() {
     <h1 style={styles.title}>Moostik CRM</h1>
     <img src="img/moostik.png" style={styles.logo}></img>
     { creds ? <SessionList creds={creds}></SessionList> : <SigninForm onSignin={setCreds}></SigninForm> }
+    <p className="mt-10"><a href="./privacy/" className="text-light">Privacy policy</a></p>
   </Container>;
 }
 

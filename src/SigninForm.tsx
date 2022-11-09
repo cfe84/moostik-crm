@@ -42,8 +42,7 @@ export function SigninForm(props: SigninFormProps) {
       .finally(() => setSigningIn(false));
   }
 
-  return <Container>
-        <Form style={styles.form}>
+  return <Form style={styles.form}>
           { error === "" || <Alert variant="danger">{error}</Alert>}
           <Form.Group>
             <Form.Label>Username</Form.Label>
@@ -59,6 +58,4 @@ export function SigninForm(props: SigninFormProps) {
               : <><Button onClick={signin} disabled={!username || !password}>Sign In</Button> <br/> <a style={styles.signuplink} href="./signup/">Create an account</a></>}
           </Form.Group>
         </Form>
-      <p className="mt-10"><a href="/privacy/" className="text-light">Privacy policy</a></p>
-    </Container>
 }
