@@ -42,7 +42,17 @@ const signup = {
   },
 };
 
-const exp = [index, signup];
+const privacy = {
+  entry: './src/privacy.ts',
+  output: {
+    path: path.resolve(__dirname, 'dist', "js"),
+    filename: 'privacy.js',
+    library: "privacy",
+    libraryTarget: "umd"
+  },
+};
+
+const exp = [index, signup, privacy];
 exp.forEach((ex) => Object.assign(ex, common))
 
 module.exports = exp;

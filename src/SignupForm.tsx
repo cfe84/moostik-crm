@@ -162,6 +162,7 @@ export function SignupForm() {
       <h2 style={styles.title}>Moostik CRM</h2>
       <img src="../img/moostik.png" style={styles.logo}></img>
     </Row>
+    <p><a href="/privacy/" className="text-light">Privacy policy</a></p>
   </Container>
 }
 
