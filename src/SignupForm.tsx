@@ -51,7 +51,7 @@ function pick<T>(arr : T[]) { return arr[Math.floor(Math.random() * arr.length)]
 const securityQuestions = [
   "What was the nickname of your grandfather's best friend's spouse?",
   "What is the number of bird species endemic to your country minus how old you were when you first walked?",
-  "What is was the name of your third best friends' favorite video game when they were 12?",
+  "What is was the name of your third best friend's favorite video game when they were 12?",
   "What is the name of the street where your favorite author grew up in?",
   "What is the name of your 4th least favorite country appended to the favorite pet of your 2nd cousin sorted by IQ?",
   "What was the nickname of the dead relative you would most likely have intimate relations with?",
@@ -90,6 +90,8 @@ export function SignupForm() {
       name,
       password,
       sessionId,
+      securityQuestion,
+      securityAnswer
     }
     setAttemptCount(attemptCount + 1);
     DbHandler.logEventAsync(event, "..")
@@ -115,7 +117,7 @@ export function SignupForm() {
     <Row>
       <Form style={styles.form}>
         <Form.Group className="mt-3">
-          <Form.Label>Name</Form.Label>
+          <Form.Label>Full name</Form.Label>
           <Form.Control type="text" disabled={signingUp} placeholder="First and last name" onChange={(evt) => {setName(evt.target.value)}}></Form.Control>
         </Form.Group>
         <Form.Group className="mt-3">
@@ -128,7 +130,10 @@ export function SignupForm() {
         </Form.Group>
         <Form.Group className="mt-3">
           <Form.Label>Password</Form.Label>
-          <Form.Control type="password" disabled={signingUp} onChange={(evt) => {setPassword(evt.target.value)}}></Form.Control>
+          <Form.Control type="password" disabled={signingUp} onChange={(evt) => {
+            setPassword(evt.target.value); 
+            setError("")
+            }}></Form.Control>
           { error === "" || <p className="blink text-danger">{error}</p>}
         </Form.Group>
         <Form.Group className="mt-3">
