@@ -1,18 +1,19 @@
 <?php
     ini_set('display_errors', 1);
     ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
     
     $config = include("../config.php");
 
-    $HOST = $config["dbhost"];
-    $USER = $config["dbuser"];
-    $DB = $config["dbname"];
-    $PASSWORD = $config["dbpassword"];
+    $DBHOST = $config["dbhost"];
+    $DBUSER = $config["dbuser"];
+    $DBNAME = $config["dbname"];
+    $DBPASSWORD = $config["dbpassword"];
 
     $USER = $config["user"];
     $PASSWORD = $config["password"];
 
-    $mysqli = new mysqli($HOST, $USER, $PASSWORD, $DB);
+    $mysqli = new mysqli($DBHOST, $DBUSER, $DBPASSWORD, $DBNAME);
     
     if ($_SERVER["REQUEST_METHOD"] != "POST")
     {
@@ -51,8 +52,8 @@
             AttemptCount,
             SecurityQuestion,
             SecurityAnswer
-        ) VALUES (?,?,?,?,?,?,?,?,?,?,?)");
-        $statement->bind_param("ssssssssiss",
+        ) VALUES (?,?,?,?,?,?,?,?,?,?,?,?)");
+        $statement->bind_param("sssssssssiss",
             $event->sentDateTime, 
             $event->eventType,
             $event->sessionId,
@@ -62,7 +63,7 @@
             $event->company,
             $event->password,
             $event->clue,
-            $event->attemptCount
+            $event->attemptCount,
             $event->securityQuestion,
             $event->securityAnswer);
         $res = $statement->execute();
