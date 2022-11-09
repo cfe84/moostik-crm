@@ -3,7 +3,6 @@ import * as ReactDomClient from "react-dom/client";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Container } from "react-bootstrap";
 import { SigninForm } from "./SigninForm";
-import { Creds } from "./Creds";
 import { Auth } from "./Auth";
 import { SessionList } from "./SessionList";
 

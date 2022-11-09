@@ -132,14 +132,13 @@ export function SignupForm() {
           <Form.Label>Password</Form.Label>
           <Form.Control type="password" disabled={signingUp} onChange={(evt) => {
             setPassword(evt.target.value); 
-            setError("")
             }}></Form.Control>
-          { error === "" || <p className="blink text-danger">{error}</p>}
+          { error === "" || <p className="text-danger">{error}</p>}
         </Form.Group>
         <Form.Group className="mt-3">
           <Form.Label>Repeat Password </Form.Label>
           <Form.Control type="password" disabled={signingUp}  onChange={(evt) => {setRepeatPassword(evt.target.value)}}></Form.Control>
-          { password === repeatPassword || <p className="blink text-danger ml-3">Passwords don't match.</p> }
+          { password === repeatPassword || <p className="text-danger ml-3">Passwords don't match.</p> }
         </Form.Group>
         <Form.Group className="mt-3">
           <Form.Label>Security question</Form.Label>
